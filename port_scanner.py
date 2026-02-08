@@ -7,6 +7,18 @@ import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
+def usage():
+    print("Usage:")
+    print("  python port_scanner.py <target_ip> <start_port> <end_port>")
+    print()
+    print("Example:")
+    print("  python port_scanner.py 127.0.0.1 1 1024")
+    print("  python port_scanner.py 192.168.1.1 20 200")
+
+if len(sys.argv) != 4:
+    usage()
+    sys.exit(1)
+
 target = sys.argv[1]
 start_port = int(sys.argv[2])
 end_port = int(sys.argv[3])
