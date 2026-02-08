@@ -8,6 +8,9 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 
 target = sys.argv[1]
+start_port = int(sys.argv[2])
+end_port = int(sys.argv[3])
+
 print("Scanning target:",target)
 
 def scan_port(port):
@@ -21,4 +24,4 @@ def scan_port(port):
     s.close()
 
 with ThreadPoolExecutor(max_workers=50) as executor:
-    executor.map(scan_port, range(1, 1025))
+    executor.map(scan_port, range(start_port, end_port + 1))
