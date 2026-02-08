@@ -8,7 +8,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 
 target = sys.argv[1]
-print("Scanning target: ",target)
+print("Scanning target:",target)
 
 def scan_port(port):
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
