@@ -5,6 +5,7 @@
 import socket
 import sys
 import threading
+from concurrent.futures import ThreadPoolExecutor
 
 target = sys.argv[1]
 print("Scanning target: ",target)
@@ -19,6 +20,5 @@ def scan_port(port):
         print(f"PORT {port} is OPEN")
     s.close()
 
-for port in range(1,1025):
-    t = threading.Thread(target=scan_port,args=(port,))
-    t.start()
+with ThreadPoolExecutor(max_workers=50) as executor:
+    executor.map(scan_port, range(1, 1025))
