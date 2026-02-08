@@ -32,7 +32,12 @@ def scan_port(port):
     result = s.connect_ex((target,port))
 
     if result == 0:
-        print(f"PORT {port} is OPEN")
+        try:
+            s.send("Hello\r\n")
+            banner = s.recv(1024).decode().strip()
+            print(f"Port {port} is OPEN | Banner: {banner}")
+        except:
+            print(f"Port {port} is OPEN | No Banner")
     s.close()
 
 with ThreadPoolExecutor(max_workers=50) as executor:
