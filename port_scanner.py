@@ -4,11 +4,12 @@
 
 import socket
 import sys
+import threading
 
 target = sys.argv[1]
 print("Scanning target: ",target)
 
-for port in range(1,1025):
+def scan_port(port):
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     s.settimeout(1)
 
@@ -17,3 +18,7 @@ for port in range(1,1025):
     if result == 0:
         print(f"PORT {port} is OPEN")
     s.close()
+
+for port in range(1,1025):
+    t = threading.Thread(target=scan_port,args=(port,))
+    t.start()
